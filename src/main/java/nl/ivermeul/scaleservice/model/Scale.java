@@ -1,7 +1,11 @@
 package nl.ivermeul.scaleservice.model;
 
-import java.util.List;
+import java.util.Map;
 
 public interface Scale {
-    public static final List<Pitch> pitches = List.of(Pitch.valueOf("C"));
+    public Pitch getPitchByStep(int step);
+
+    public Map<Integer, Pitch> getPitches(String root);
+
+    public String getPitchesAsString(String root);
 }
