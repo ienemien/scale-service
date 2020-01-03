@@ -7,18 +7,18 @@ import java.util.List;
  * The pitch of a musical note
  */
 public enum Pitch {
-    C(1, "C"),
-    CSHARP(2, "C-sharp", "D-flat"),
-    D(3, "D"),
-    DSHARP(4, "D-sharp", "E-flat"),
-    E(5, "E"),
-    F(6, "F"),
-    FSHARP(7, "F-sharp", "G-flat"),
-    G(8, "G"),
-    GSHARP(9, "G-sharp", "A-flat"),
-    A(10, "A"),
-    SHARP(11, "A-sharp", "B-flat"),
-    B(12, "B");
+    C(0, "C"),
+    CSHARP(1, "C-sharp", "D-flat"),
+    D(2, "D"),
+    DSHARP(3, "D-sharp", "E-flat"),
+    E(4, "E"),
+    F(5, "F"),
+    FSHARP(6, "F-sharp", "G-flat"),
+    G(7, "G"),
+    GSHARP(8, "G-sharp", "A-flat"),
+    A(9, "A"),
+    ASHARP(10, "A-sharp", "B-flat"),
+    B(11, "B");
 
     private final List<String> names;
     private final int position;
@@ -54,13 +54,20 @@ public enum Pitch {
     }
 
     public static Pitch findPitchByRelativePosition(Pitch root, int relativePos) {
-//        int wantedPos =
-//        return Arrays.stream(Pitch.values())
-//                .filter(pitch -> pitch.getPosition == position)
-        return Pitch.C;
+        int wantedPos = (root.position + relativePos) % 12;
+        return Arrays.stream(Pitch.values())
+                .filter(pitch -> pitch.position == wantedPos)
+                .findFirst()
+                .orElseThrow(() -> new IllegalArgumentException(
+                        String.format("Pitch with root name %s and relative position %d does not exist.",
+                                root.getNames().get(0), relativePos)));
     }
 
     public List<String> getNames() {
         return names;
+    }
+
+    public int getPosition() {
+        return position;
     }
 }
