@@ -3,9 +3,9 @@ package nl.ivermeul.scaleservice.model;
 import java.util.Map;
 
 public interface Scale {
-    public Pitch getPitchByStep(int step);
+    Pitch getPitchByDegree(ScaleDegree degree);
 
-    public Map<Integer, Pitch> getPitches(String root);
+    Map<ScaleDegree, Pitch> getPitches(String root);
 
-    public String getPitchesAsString(String root);
+    String getPitchesAsString(String root);
 }
