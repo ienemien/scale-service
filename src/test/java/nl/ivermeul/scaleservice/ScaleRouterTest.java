@@ -1,5 +1,6 @@
 package nl.ivermeul.scaleservice;
 
+import nl.ivermeul.scaleservice.model.Pitch;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,12 +25,24 @@ public class ScaleRouterTest {
     }
 
     @Test
-    public void testHello() {
+    public void testScaleC() {
         webTestClient
-                .get().uri("/scale")
+                .get().uri(uriBuilder -> uriBuilder.path("/scale")
+                .queryParam("root", Pitch.C.getNames().get(0)).build())
                 .accept(MediaType.TEXT_PLAIN)
                 .exchange()
                 .expectStatus().isOk()
                 .expectBody(String.class).isEqualTo("C D E F G A B");
+    }
+
+    @Test
+    public void testScaleDsharp() {
+        webTestClient
+                .get().uri(uriBuilder -> uriBuilder.path("/scale")
+                .queryParam("root", Pitch.DSHARP.getNames().get(0)).build())
+                .accept(MediaType.TEXT_PLAIN)
+                .exchange()
+                .expectStatus().isOk()
+                .expectBody(String.class).isEqualTo("D-sharp F G G-sharp A-sharp C D");
     }
 }

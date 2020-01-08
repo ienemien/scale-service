@@ -14,7 +14,8 @@ import reactor.core.publisher.Mono;
 public class ScaleHandler {
 
     public Mono<ServerResponse> scale(ServerRequest request) {
-        MajorScale scale = new MajorScale(Pitch.findPitchByName("C"));
+        String root = request.queryParam("root").orElse("C");
+        MajorScale scale = new MajorScale(Pitch.findPitchByName(root));
         return ServerResponse.ok().contentType(MediaType.TEXT_PLAIN)
                 .body(BodyInserters.fromValue(scale.getPitchesAsString()));
     }
