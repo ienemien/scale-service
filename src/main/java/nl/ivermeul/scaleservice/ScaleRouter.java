@@ -15,6 +15,7 @@ public class ScaleRouter {
     public RouterFunction<ServerResponse> route(ScaleHandler scaleHandler) {
 
         return RouterFunctions
-                .route(RequestPredicates.GET("/scale").and(RequestPredicates.accept(MediaType.TEXT_PLAIN)), scaleHandler::scale);
+                .route(RequestPredicates.GET("/scale")
+                        .and(RequestPredicates.accept(MediaType.TEXT_PLAIN)), scaleHandler::scale);
     }
 }

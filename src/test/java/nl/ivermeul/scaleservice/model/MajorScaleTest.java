@@ -3,6 +3,7 @@ package nl.ivermeul.scaleservice.model;
 import org.junit.jupiter.api.Test;
 
 import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.is;
 
 class MajorScaleTest {
@@ -22,10 +23,9 @@ class MajorScaleTest {
     }
 
     @Test
-    void getPitches() {
-    }
-
-    @Test
-    void getPitchesAsString() {
+    void getPitchesOfCAsString() {
+        Scale cMajorScale = new MajorScale(Pitch.C);
+        String result = cMajorScale.getPitchesAsString();
+        assertThat(result, is(equalTo("C D E F G A B")));
     }
 }

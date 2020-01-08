@@ -1,6 +1,10 @@
 package nl.ivermeul.scaleservice.model;
 
-import java.util.*;
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Objects;
+import java.util.stream.Collectors;
 
 public class MajorScale implements Scale {
 
@@ -9,7 +13,7 @@ public class MajorScale implements Scale {
     private Map<ScaleDegree, Pitch> pitchPerDegree;
 
     public MajorScale(Pitch tonic) {
-        pitchPerDegree = new HashMap<>();
+        pitchPerDegree = new LinkedHashMap<>();
         int halfStepsFromRoot = 0;
         for (int i = 0; i < ScaleDegree.values().length; i++) {
             pitchPerDegree.put(ScaleDegree.findDegreeByNumber(i + 1), Pitch.findPitchByRelativePosition(tonic, halfStepsFromRoot));
@@ -25,12 +29,9 @@ public class MajorScale implements Scale {
     }
 
     @Override
-    public Map<ScaleDegree, Pitch> getPitches(String root) {
-        return pitchPerDegree;
-    }
-
-    @Override
-    public String getPitchesAsString(String root) {
-        throw new UnsupportedOperationException();
+    public String getPitchesAsString() {
+        return pitchPerDegree.values().stream()
+                .map(pitch -> pitch.getNames().get(0))
+                .collect(Collectors.joining(" "));
     }
 }
