@@ -30,3 +30,7 @@ test {
     jvmArgs(['--enable-preview'])
     useJUnitPlatform()
 }
+
+bootRun {
+    jvmArgs(['--enable-preview'])
+}
