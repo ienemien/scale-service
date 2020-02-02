@@ -4,4 +4,5 @@ public interface Scale {
     Pitch getPitchByDegree(ScaleDegree degree);
 
     String getPitchesAsString();
+
 }
