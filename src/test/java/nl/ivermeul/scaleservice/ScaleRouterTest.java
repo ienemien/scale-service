@@ -29,10 +29,11 @@ public class ScaleRouterTest {
     public void testReturnCMajorScaleByDefault() {
         webTestClient
                 .get().uri(uriBuilder -> uriBuilder.path("/scale").build())
-                .accept(MediaType.TEXT_PLAIN)
+                .accept(MediaType.APPLICATION_JSON)
                 .exchange()
                 .expectStatus().isOk()
-                .expectBody(String.class).isEqualTo("C D E F G A B");
+                .expectBody()
+                .jsonPath("pitchesPerDegree.FIRST.names[0]").isEqualTo("C");
     }
 
     @Test
@@ -41,10 +42,17 @@ public class ScaleRouterTest {
                 .get().uri(uriBuilder -> uriBuilder.path("/scale")
                 .queryParam("root", Pitch.ASHARP.getNames().get(0))
                 .build())
-                .accept(MediaType.TEXT_PLAIN)
+                .accept(MediaType.APPLICATION_JSON)
                 .exchange()
                 .expectStatus().isOk()
-                .expectBody(String.class).isEqualTo("A-sharp C D D-sharp F G A");
+                .expectBody()
+                .jsonPath("pitchesPerDegree.FIRST.names[0]").isEqualTo("A-sharp")
+                .jsonPath("pitchesPerDegree.SECOND.names[0]").isEqualTo("C")
+                .jsonPath("pitchesPerDegree.THIRD.names[0]").isEqualTo("D")
+                .jsonPath("pitchesPerDegree.FOURTH.names[0]").isEqualTo("D-sharp")
+                .jsonPath("pitchesPerDegree.FIFTH.names[0]").isEqualTo("F")
+                .jsonPath("pitchesPerDegree.SIXTH.names[0]").isEqualTo("G")
+                .jsonPath("pitchesPerDegree.SEVENTH.names[0]").isEqualTo("A");
     }
 
     @Test
@@ -54,10 +62,17 @@ public class ScaleRouterTest {
                 .queryParam("root", Pitch.DSHARP.getNames().get(0))
                 .queryParam("type", ScaleType.MAJOR.getName())
                 .build())
-                .accept(MediaType.TEXT_PLAIN)
+                .accept(MediaType.APPLICATION_JSON)
                 .exchange()
                 .expectStatus().isOk()
-                .expectBody(String.class).isEqualTo("D-sharp F G G-sharp A-sharp C D");
+                .expectBody()
+                .jsonPath("pitchesPerDegree.FIRST.names[0]").isEqualTo("D-sharp")
+                .jsonPath("pitchesPerDegree.SECOND.names[0]").isEqualTo("F")
+                .jsonPath("pitchesPerDegree.THIRD.names[0]").isEqualTo("G")
+                .jsonPath("pitchesPerDegree.FOURTH.names[0]").isEqualTo("G-sharp")
+                .jsonPath("pitchesPerDegree.FIFTH.names[0]").isEqualTo("A-sharp")
+                .jsonPath("pitchesPerDegree.SIXTH.names[0]").isEqualTo("C")
+                .jsonPath("pitchesPerDegree.SEVENTH.names[0]").isEqualTo("D");
     }
 
     @Test
@@ -68,7 +83,7 @@ public class ScaleRouterTest {
                 .queryParam("root", Pitch.DSHARP.getNames().get(0))
                 .queryParam("type", "Dorian")
                 .build())
-                .accept(MediaType.TEXT_PLAIN)
+                .accept(MediaType.APPLICATION_JSON)
                 .exchange()
                 .expectStatus().isOk()
                 .expectStatus().isBadRequest();

@@ -1,8 +1,13 @@
 package nl.ivermeul.scaleservice.model;
 
-public interface Scale {
-    Pitch getPitchByDegree(ScaleDegree degree);
+import java.util.Map;
 
-    String getPitchesAsString();
+public interface Scale {
+
+    Pitch findPitchByDegree(ScaleDegree degree);
+
+    String pitchesAsString();
+
+    Map<ScaleDegree, Pitch> getPitchesPerDegree();
 
 }
