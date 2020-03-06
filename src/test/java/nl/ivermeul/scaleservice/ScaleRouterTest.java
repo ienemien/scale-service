@@ -40,7 +40,7 @@ public class ScaleRouterTest {
     public void testSetAsharpAsRootGetMajorScaleByDefault() {
         webTestClient
                 .get().uri(uriBuilder -> uriBuilder.path("/scale")
-                .queryParam("root", Pitch.ASHARP.getNames().get(0))
+                .queryParam("tonic", Pitch.ASHARP.getNames().get(0))
                 .build())
                 .accept(MediaType.APPLICATION_JSON)
                 .exchange()
@@ -59,7 +59,7 @@ public class ScaleRouterTest {
     public void testGetDsharpMajorScaleBySettingParams() {
         webTestClient
                 .get().uri(uriBuilder -> uriBuilder.path("/scale")
-                .queryParam("root", Pitch.DSHARP.getNames().get(0))
+                .queryParam("tonic", Pitch.DSHARP.getNames().get(0))
                 .queryParam("type", ScaleType.MAJOR.getName())
                 .build())
                 .accept(MediaType.APPLICATION_JSON)
@@ -77,15 +77,13 @@ public class ScaleRouterTest {
 
     @Test
     public void testThrowsExceptionIfScaleTypeUnknown() {
-        //todo: test fails, add error handling to service
         webTestClient
                 .get().uri(uriBuilder -> uriBuilder.path("/scale")
-                .queryParam("root", Pitch.DSHARP.getNames().get(0))
+                .queryParam("tonic", Pitch.DSHARP.getNames().get(0))
                 .queryParam("type", "Dorian")
                 .build())
                 .accept(MediaType.APPLICATION_JSON)
                 .exchange()
-                .expectStatus().isOk()
                 .expectStatus().isBadRequest();
     }
 }

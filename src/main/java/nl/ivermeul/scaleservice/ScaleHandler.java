@@ -1,8 +1,10 @@
 package nl.ivermeul.scaleservice;
 
+import nl.ivermeul.scaleservice.exceptions.ScaleCreationException;
 import nl.ivermeul.scaleservice.factory.ScaleFactory;
 import nl.ivermeul.scaleservice.model.Scale;
 import nl.ivermeul.scaleservice.model.ScaleType;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Component;
 import org.springframework.web.reactive.function.BodyInserters;
@@ -14,11 +16,18 @@ import reactor.core.publisher.Mono;
 public class ScaleHandler {
 
     public Mono<ServerResponse> scale(ServerRequest request) {
-        Scale scale = ScaleFactory.createScale(
-                request.queryParam("type").orElse(ScaleType.MAJOR.getName()),
-                request.queryParam("root").orElse("C"));
+        String type = request.queryParam("type").orElse(ScaleType.MAJOR.getName());
+        String tonicName = request.queryParam("tonic").orElse("C");
 
-        return ServerResponse.ok().contentType(MediaType.APPLICATION_JSON)
-                .body(BodyInserters.fromValue(scale));
+        try {
+            Scale scale = ScaleFactory.createScale(
+                    type,
+                    tonicName);
+
+            return ServerResponse.ok().contentType(MediaType.APPLICATION_JSON)
+                    .body(BodyInserters.fromValue(scale));
+        } catch (Exception e) {
+            return Mono.error(new ScaleCreationException(HttpStatus.BAD_REQUEST, String.format("Could not create scale with type %s and tonic %s", type, tonicName)));
+        }
     }
 }
