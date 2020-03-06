@@ -76,6 +76,21 @@ public class ScaleRouterTest {
     }
 
     @Test
+    public void testGetBNaturalMinorScaleBySettingParams() {
+        webTestClient
+                .get().uri(uriBuilder -> uriBuilder.path("/scale")
+                .queryParam("tonic", Pitch.B.getNames().get(0))
+                .queryParam("type", "natural-minor")
+                .build())
+                .accept(MediaType.APPLICATION_JSON)
+                .exchange()
+                .expectStatus().isOk()
+                .expectBody()
+                .jsonPath("pitchesPerDegree.FIRST.names[0]").isEqualTo("B")
+                .jsonPath("pitchesPerDegree.SECOND.names[0]").isEqualTo("C-sharp");
+    }
+
+    @Test
     public void testThrowsExceptionIfScaleTypeUnknown() {
         webTestClient
                 .get().uri(uriBuilder -> uriBuilder.path("/scale")

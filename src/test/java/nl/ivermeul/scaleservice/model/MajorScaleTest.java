@@ -29,4 +29,20 @@ class MajorScaleTest {
         String result = cMajorScale.pitchesAsString();
         assertThat(result, is(equalTo("C D E F G A B")));
     }
+
+    @Test
+    void getPitchesOfBAsString() {
+        Scale cMajorScale = new MajorScale(Pitch.B);
+        String result = cMajorScale.pitchesAsString();
+
+        assertThat(result, is(equalTo("B C-sharp D-sharp E F-sharp G-sharp A-sharp")));
+    }
+
+    @Test
+    void getPitchesOfGsharpAsString() {
+        Scale cMajorScale = new MajorScale(Pitch.GSHARP);
+        String result = cMajorScale.pitchesAsString();
+
+        assertThat(result, is(equalTo("G-sharp A-sharp C C-sharp D-sharp F G")));
+    }
 }

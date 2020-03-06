@@ -1,9 +1,6 @@
 package nl.ivermeul.scaleservice.factory;
 
-import nl.ivermeul.scaleservice.model.MajorScale;
-import nl.ivermeul.scaleservice.model.Pitch;
-import nl.ivermeul.scaleservice.model.Scale;
-import nl.ivermeul.scaleservice.model.ScaleType;
+import nl.ivermeul.scaleservice.model.*;
 
 /**
  * Factory for creating scales by type and tonic (root note)
@@ -23,7 +20,8 @@ public class ScaleFactory {
 
         return switch (type) {
             case MAJOR -> new MajorScale(tonic);
-            case NATURAL_MINOR, HARMONIC_MINOR, MELODIC_MINOR -> throw new UnsupportedOperationException("Scale type not yet supported.");
+            case NATURAL_MINOR -> new NaturalMinorScale(tonic);
+            case HARMONIC_MINOR, MELODIC_MINOR -> throw new UnsupportedOperationException("Scale type not yet supported.");
         };
     }
 }
