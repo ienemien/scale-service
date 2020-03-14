@@ -1,5 +1,6 @@
 package nl.ivermeul.scaleservice.factory;
 
+import nl.ivermeul.scaleservice.exceptions.UnsupportedScaleException;
 import nl.ivermeul.scaleservice.model.*;
 
 /**
@@ -21,7 +22,7 @@ public class ScaleFactory {
         return switch (type) {
             case MAJOR -> new MajorScale(tonic);
             case NATURAL_MINOR -> new NaturalMinorScale(tonic);
-            case HARMONIC_MINOR, MELODIC_MINOR -> throw new UnsupportedOperationException("Scale type not yet supported.");
+            case HARMONIC_MINOR, MELODIC_MINOR -> throw new UnsupportedScaleException("Scale type not yet supported.");
         };
     }
 }

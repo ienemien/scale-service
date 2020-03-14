@@ -1,5 +1,6 @@
 package nl.ivermeul.scaleservice;
 
+import lombok.extern.slf4j.Slf4j;
 import nl.ivermeul.scaleservice.exceptions.ScaleCreationException;
 import nl.ivermeul.scaleservice.factory.ScaleFactory;
 import nl.ivermeul.scaleservice.model.Scale;

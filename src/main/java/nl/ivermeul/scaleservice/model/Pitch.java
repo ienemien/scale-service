@@ -1,6 +1,7 @@
 package nl.ivermeul.scaleservice.model;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import nl.ivermeul.scaleservice.exceptions.PitchNotFoundException;
 
 import java.util.Arrays;
 import java.util.List;
@@ -41,7 +42,7 @@ public enum Pitch {
         return Arrays.stream(Pitch.values())
                 .filter(pitch -> pitch.getNames().contains(name))
                 .findFirst()
-                .orElseThrow(() -> new IllegalArgumentException(String.format("Pitch with name %s does not exist", name)));
+                .orElseThrow(() -> new PitchNotFoundException(String.format("Pitch with name %s does not exist", name)));
     }
 
     public static Pitch findPitchByRelativePosition(Pitch root, int relativePos) {
@@ -49,7 +50,7 @@ public enum Pitch {
         return Arrays.stream(Pitch.values())
                 .filter(pitch -> pitch.position == wantedPos)
                 .findFirst()
-                .orElseThrow(() -> new IllegalArgumentException(
+                .orElseThrow(() -> new PitchNotFoundException(
                         String.format("Pitch with root name %s and relative position %d does not exist.",
                                 root.getNames().get(0), relativePos)));
     }

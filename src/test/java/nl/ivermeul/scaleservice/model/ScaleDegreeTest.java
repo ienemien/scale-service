@@ -1,5 +1,6 @@
 package nl.ivermeul.scaleservice.model;
 
+import nl.ivermeul.scaleservice.exceptions.ScaleDegreeNotFoundException;
 import org.junit.jupiter.api.Test;
 
 import static org.hamcrest.MatcherAssert.assertThat;
@@ -22,7 +23,7 @@ class ScaleDegreeTest {
 
     @Test
     void findDegreeByNumberThrowsExceptionIfNumberNotFound() {
-        Exception exception = assertThrows(IllegalArgumentException.class, () -> ScaleDegree.findDegreeByNumber(8));
+        Exception exception = assertThrows(ScaleDegreeNotFoundException.class, () -> ScaleDegree.findDegreeByNumber(8));
         assertThat(exception.getMessage(), containsString("8"));
     }
 }

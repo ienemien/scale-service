@@ -1,5 +1,7 @@
 package nl.ivermeul.scaleservice.model;
 
+import nl.ivermeul.scaleservice.exceptions.ScaleDegreeNotFoundException;
+
 import java.util.Arrays;
 
 public enum ScaleDegree {
@@ -23,7 +25,7 @@ public enum ScaleDegree {
         return Arrays.stream(ScaleDegree.values())
                 .filter(degree -> degree.getNumber() == number)
                 .findFirst()
-                .orElseThrow(() -> new IllegalArgumentException(String.format("Degree with number %d does not exist", number)));
+                .orElseThrow(() -> new ScaleDegreeNotFoundException(String.format("Degree with number %d does not exist", number)));
     }
 
     public int getNumber() {

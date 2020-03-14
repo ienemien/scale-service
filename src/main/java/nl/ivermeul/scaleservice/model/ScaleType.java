@@ -1,5 +1,7 @@
 package nl.ivermeul.scaleservice.model;
 
+import nl.ivermeul.scaleservice.exceptions.ScaleTypeNotFound;
+
 import java.util.Arrays;
 
 public enum ScaleType {
@@ -18,7 +20,7 @@ public enum ScaleType {
         return Arrays.stream(ScaleType.values())
                 .filter(value -> value.getName().equalsIgnoreCase(name))
                 .findFirst()
-                .orElseThrow(() -> new IllegalArgumentException(String.format("Scale with name %s does not exist or is not supported.", name)));
+                .orElseThrow(() -> new ScaleTypeNotFound(String.format("Scale with name %s does not exist or is not supported.", name)));
     }
 
     public String getName() {
