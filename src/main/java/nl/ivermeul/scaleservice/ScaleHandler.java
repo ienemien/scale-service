@@ -13,6 +13,7 @@ import org.springframework.web.reactive.function.server.ServerRequest;
 import org.springframework.web.reactive.function.server.ServerResponse;
 import reactor.core.publisher.Mono;
 
+@Slf4j
 @Component
 public class ScaleHandler {
 
@@ -28,7 +29,9 @@ public class ScaleHandler {
             return ServerResponse.ok().contentType(MediaType.APPLICATION_JSON)
                     .body(BodyInserters.fromValue(scale));
         } catch (Exception e) {
-            return Mono.error(new ScaleCreationException(HttpStatus.BAD_REQUEST, String.format("Could not create scale with type %s and tonic %s", type, tonicName)));
+            String errorMessage = String.format("Could not create scale with type %s and tonic %s", type, tonicName);
+            log.error(errorMessage, e);
+            return Mono.error(new ScaleCreationException(HttpStatus.BAD_REQUEST, errorMessage));
         }
     }
 }
