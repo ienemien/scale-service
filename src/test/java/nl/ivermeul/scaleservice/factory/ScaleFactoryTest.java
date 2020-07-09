@@ -14,7 +14,7 @@ class ScaleFactoryTest {
         Scale scale = ScaleFactory.createScale("major", "B");
 
         assertThat(scale, instanceOf(MajorScale.class));
-        assertThat(scale.getPitchesPerDegree().get(ScaleDegree.FIRST), is(equalTo(Pitch.B)));
+        assertThat(scale.getPitchesPerDegree().get(ScaleDegree.TONIC), is(equalTo(Pitch.B)));
     }
 
     @Test
@@ -22,6 +22,6 @@ class ScaleFactoryTest {
         Scale scale = ScaleFactory.createScale("natural-minor", "G");
 
         assertThat(scale, instanceOf(NaturalMinorScale.class));
-        assertThat(scale.getPitchesPerDegree().get(ScaleDegree.FIRST), is(equalTo(Pitch.G)));
+        assertThat(scale.getPitchesPerDegree().get(ScaleDegree.TONIC), is(equalTo(Pitch.G)));
     }
 }

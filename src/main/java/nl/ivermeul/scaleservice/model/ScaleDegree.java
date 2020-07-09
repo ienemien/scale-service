@@ -5,20 +5,18 @@ import nl.ivermeul.scaleservice.exceptions.ScaleDegreeNotFoundException;
 import java.util.Arrays;
 
 public enum ScaleDegree {
-    FIRST(1, "Tonic"),
-    SECOND(2, "Supertonic"),
-    THIRD(3, "Mediant"),
-    FOURTH(4, "Subdominant"),
-    FIFTH(5, "Dominant"),
-    SIXTH(6, "Submediant"),
-    SEVENTH(7, "Leading Tone");
+    TONIC(1),
+    SUPERTONIC(2),
+    MEDIANT(3),
+    SUBDOMINANT(4),
+    DOMINANT(5),
+    SUBMEDIANT(6),
+    LEADING_TONE(7);
 
     private int number;
-    private String name;
 
-    ScaleDegree(int number, String name) {
+    ScaleDegree(int number) {
         this.number = number;
-        this.name = name;
     }
 
     public static ScaleDegree findDegreeByNumber(int number) {
@@ -32,7 +30,4 @@ public enum ScaleDegree {
         return number;
     }
 
-    public String getName() {
-        return name;
-    }
 }

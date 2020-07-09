@@ -12,13 +12,13 @@ class ScaleDegreeTest {
     @Test
     void findDegreeByNumber7() {
         ScaleDegree result = ScaleDegree.findDegreeByNumber(7);
-        assertThat(result, is(ScaleDegree.SEVENTH));
+        assertThat(result, is(ScaleDegree.LEADING_TONE));
     }
 
     @Test
     void findDegreeByNumber1() {
         ScaleDegree result = ScaleDegree.findDegreeByNumber(1);
-        assertThat(result, is(ScaleDegree.FIRST));
+        assertThat(result, is(ScaleDegree.TONIC));
     }
 
     @Test

@@ -12,14 +12,14 @@ class MajorScaleTest {
     @Test
     void getPitchOfCMajorScaleDegree1() {
         Scale cMajorScale = new MajorScale(Pitch.C);
-        Pitch result = cMajorScale.findPitchByDegree(ScaleDegree.FIRST);
+        Pitch result = cMajorScale.findPitchByDegree(ScaleDegree.TONIC);
         assertThat(result, is(Pitch.C));
     }
 
     @Test
     void getPitchOfCMajorScaleDegree7() {
         Scale cMajorScale = new MajorScale(Pitch.C);
-        Pitch result = cMajorScale.findPitchByDegree(ScaleDegree.SEVENTH);
+        Pitch result = cMajorScale.findPitchByDegree(ScaleDegree.LEADING_TONE);
         assertThat(result, is(Pitch.B));
     }
 
